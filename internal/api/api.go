@@ -39,5 +39,6 @@ func (s *server) configureRouter() {
 }
 
 func (s *server) BindingAddressFromPort(port int) string {
+	logrus.Info("listening on port ", port)
 	return fmt.Sprintf(":%d", port)
 }

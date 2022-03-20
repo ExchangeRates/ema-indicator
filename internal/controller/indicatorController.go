@@ -18,9 +18,9 @@ func NewIndicatorController(service service.IndicatorService) *IndicatorControll
 
 func (c *IndicatorController) HandleCalculate() http.HandlerFunc {
 	type request struct {
-		Prev    float64 `json:"prev"`
-		Current float64 `json:"current"`
-		Period  int     `json:"period"`
+		Prev   float64 `json:"prev"`
+		Value  float64 `json:"value"`
+		Period int     `json:"period"`
 	}
 	type response struct {
 		Value float64 `json:"value"`
@@ -33,7 +33,7 @@ func (c *IndicatorController) HandleCalculate() http.HandlerFunc {
 			return
 		}
 
-		value := c.service.Calculate(body.Prev, body.Current, body.Period)
+		value := c.service.Calculate(body.Prev, body.Value, body.Period)
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
