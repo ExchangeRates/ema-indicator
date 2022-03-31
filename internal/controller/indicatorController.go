@@ -4,6 +4,8 @@ import (
 	"ema_indicator/internal/service"
 	"encoding/json"
 	"net/http"
+
+	"github.com/sirupsen/logrus"
 )
 
 type IndicatorController struct {
@@ -18,7 +20,7 @@ func NewIndicatorController(service service.IndicatorService) *IndicatorControll
 
 func (c *IndicatorController) HandleCalculate() http.HandlerFunc {
 	type request struct {
-		Prev   float64 `json:"prev"`
+		Prev   *float64 `json:"prev"`
 		Value  float64 `json:"value"`
 		Period int     `json:"period"`
 	}
@@ -32,6 +34,7 @@ func (c *IndicatorController) HandleCalculate() http.HandlerFunc {
 			// TODO send error
 			return
 		}
+    logrus.Info(body)
 
 		value := c.service.Calculate(body.Prev, body.Value, body.Period)
 
