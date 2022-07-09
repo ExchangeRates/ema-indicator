@@ -21,8 +21,8 @@ func NewIndicatorController(service service.IndicatorService) *IndicatorControll
 func (c *IndicatorController) HandleCalculate() http.HandlerFunc {
 	type request struct {
 		Prev   *float64 `json:"prev"`
-		Value  float64 `json:"value"`
-		Period int     `json:"period"`
+		Value  float64  `json:"value"`
+		Period int      `json:"period"`
 	}
 	type response struct {
 		Value float64 `json:"value"`
@@ -34,7 +34,7 @@ func (c *IndicatorController) HandleCalculate() http.HandlerFunc {
 			// TODO send error
 			return
 		}
-    logrus.Info(body)
+		logrus.Info(body)
 
 		value := c.service.Calculate(body.Prev, body.Value, body.Period)
 

@@ -11,13 +11,13 @@ func NewIndicator() IndicatorService {
 }
 
 func (i *indicatorServiceImpl) Calculate(prev *float64, value float64, period int) float64 {
-  if prev == nil {
-    return value
-  }
+	if prev == nil {
+		return value
+	}
 
 	multiplier := i.getMultiplier(period)
 
-	return multiplier*value + (1-multiplier) * *prev
+	return multiplier*value + (1-multiplier)**prev
 }
 
 func (i *indicatorServiceImpl) getMultiplier(period int) float64 {

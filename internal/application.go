@@ -5,7 +5,6 @@ import (
 	"ema_indicator/internal/config"
 	"ema_indicator/internal/controller"
 	"ema_indicator/internal/service"
-	"net/http"
 )
 
 func Start(config *config.Config) error {
@@ -14,7 +13,6 @@ func Start(config *config.Config) error {
 	indicatorController := controller.NewIndicatorController(indicatorService)
 
 	srv := api.NewServer(indicatorController)
-	bindingAddress := srv.BindingAddressFromPort(config.Port)
 
-	return http.ListenAndServe(bindingAddress, srv)
+	return srv.GracefullListenAndServe(config.Port)
 }
